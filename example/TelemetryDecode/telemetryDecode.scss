@@ -1,0 +1,50 @@
+$meterNeedlePerc: 1%;
+$meterNeedleMinPx: 4px;
+$meterNeedleMaxPx: 20px;
+$meterNeedleBorderRadius: 5px;
+
+.is-object-type-telemetryDecode {
+  overflow: hidden;
+}
+
+.req-indicator {
+  width: 20px;
+
+  &.invalid,
+  &.invalid.req { @include validationState($glyph-icon-x, $colorFormInvalid); }
+  &.valid,
+  &.valid.req { @include validationState($glyph-icon-check, $colorFormValid); }
+  &.req { @include validationState($glyph-icon-asterisk, $colorFormRequired); }
+}
+
+.c-telemetryDecode {
+  // Both dial and meter types
+  overflow: hidden;
+
+  &__range,
+  &__units,
+  &__units text {
+    $c: $colorTelemetryDecodeRange;
+    color: $c;
+    fill: $c;
+  }
+
+  &__wrapper {
+    @include abs();
+    overflow: hidden;
+  }
+
+  &__current-value-text-wrapper {
+    // SVG
+    position: absolute;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+
+
+.svg-viewbox-debug {
+  fill: rgba(deeppink, 0.5);
+  display: none;
+}

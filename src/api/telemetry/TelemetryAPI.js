@@ -292,6 +292,63 @@ export default class TelemetryAPI {
     }
 
     /**
+     * Request historical telemetry for a group of domain objects.
+     * The `options` argument allows you to specify filters
+     * (start, end, etc.), sort order, and strategies for retrieving
+     * telemetry (aggregation, latest available, etc.).
+     *
+     * @method request
+     * @memberof module:openmct.TelemetryAPI~TelemetryProvider#
+     * @param {module:openmct.DomainObject} domainObject the object
+     *        which has associated telemetry
+     * @param {module:openmct.TelemetryAPI~TelemetryRequest} options
+     *        options for this historical request
+     * @returns {Promise.<object[]>} a promise for an array of
+     *          telemetry data
+     */
+     async requestGroup(domainObject) {
+        console.log("TelAPI: Request Group", domainObject);
+        if (this.noRequestProviderForAllObjects) {
+            return Promise.resolve([]);
+        }
+        //console.log("Here", arguments);
+        if (arguments.length === 1) {
+            arguments.length = 2;
+            arguments[1] = {};
+        }
+
+        const abortController = new AbortController();
+        arguments[1].signal = abortController.signal;
+        this.requestAbortControllers.add(abortController);
+
+        this.standardizeRequestOptions(arguments[1]);
+
+        const provider = this.findRequestProvider.apply(this, arguments);
+        if (!provider) {
+            this.requestAbortControllers.delete(abortController);
+
+            return this.handleMissingRequestProvider(domainObject);
+        }
+        //console.log("Here");
+        arguments[1] = await this.applyRequestInterceptors(domainObject, arguments[1]);
+        console.log("Here", provider, arguments);
+        return provider.request.apply(provider, arguments)
+            .catch((rejected) => {
+                if (rejected.name !== 'AbortError') {
+                    this.openmct.notifications.error('Error requesting telemetry data, see console for details');
+                    console.error(rejected);
+                }
+
+                return Promise.reject(rejected);
+            }).finally(() => {
+                console.log("here");
+                this.requestAbortControllers.delete(abortController);
+            });
+    }
+
+
+
+    /**
      * Subscribe to realtime telemetry for a specific domain object.
      * The callback will be called whenever data is received from a
      * realtime provider.

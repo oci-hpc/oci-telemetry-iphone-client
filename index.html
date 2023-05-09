@@ -66,6 +66,12 @@
     <body>
     </body>
     <script>
+        // Running locally use the localhost option, 
+        //on cloud, this is the public IP of the VM it is running on.
+        //const IP_ADDRESS = '129.153.176.88'; // ASHBURN VM
+        //const IP_ADDRESS = 'fudo2.com';    // ASHBRUN VM but through domain name
+        const IP_ADDRESS = 'localhost';
+
         const THIRTY_SECONDS = 30 * 1000;
         const ONE_MINUTE = THIRTY_SECONDS * 2;
         const FIVE_MINUTES = ONE_MINUTE * 5;
@@ -75,6 +81,17 @@
         const TWO_HOURS = ONE_HOUR * 2;
         const ONE_DAY = ONE_HOUR * 24;
 
+        const LAP = 1;
+        const FIVE_LAPS = LAP * 5;
+        const TEN_LAPS = FIVE_LAPS * 2;
+        const TWENTY_LAPS = TEN_LAPS * 2;
+        const FORTY_LAPS = TWENTY_LAPS * 2;
+        const ALL_LAPS = FORTY_LAPS * 2;
+        
+        const LAP_DISTANCE = 1.0;
+        const LAP_THIRD = 0.33;
+        const LAP_TWOTHIRDS = 0.66;
+
         openmct.install(openmct.plugins.LocalStorage());
 
         openmct.install(openmct.plugins.example.Generator());
@@ -82,12 +99,18 @@
         openmct.install(openmct.plugins.example.ExampleImagery());
         openmct.install(openmct.plugins.example.ExampleTags());
 
+        // Choose Theme
         openmct.install(openmct.plugins.Espresso());
+        //openmct.install(openmct.plugins.Snow());
+        //openmct.install(openmct.plugins.RedBull());
+
+    
         openmct.install(openmct.plugins.MyItems());
         openmct.install(openmct.plugins.PlanLayout());
         openmct.install(openmct.plugins.Timeline());
         openmct.install(openmct.plugins.Hyperlink());
         openmct.install(openmct.plugins.UTCTimeSystem());
+        openmct.install(openmct.plugins.LapDistanceTimeSystem());
         openmct.install(openmct.plugins.AutoflowView({
             type: "telemetry.panel"
         }));
@@ -181,7 +204,145 @@
                             }
                         }
                     ]
+                },
+                {
+                    name: "Lap Distance",
+                    timeSystem: 'lapDistanceTimeSystem',
+                    //Remove the live clock
+                    //clock: 'lapDistanceClock',
+                    //clockOffsets: {
+                    //    start: - THIRTY_MINUTES,
+                    //    end: THIRTY_SECONDS
+                    //},
+                    bounds: {
+                        start: -100.0,
+                        end: 4000.0
+                    },
+                    presets: [
+                        {
+                            label: 'Full Lap',
+                            bounds: {
+                                start: -100.0,
+                                end: 4000.0
+                            }
+                        },
+                        {
+                            label: 'Sector 1',
+                            bounds: {
+                                start: -100.0,
+                                end: (4000.0/3.0) + 100.0
+                            }
+                        },
+                        {
+                            label: 'Sector 2',
+                            bounds: {
+                                start: (4000.0/3.0) - 100.0,
+                                end: ((4000.0/3.0) * 2.0) + 100.0
+                            }
+                        },
+                        {
+                            label: 'Sector 3',
+                            bounds: {
+                                start: ((4000.0/3.0) * 2.0) - 100.0,
+                                end: 4000.0 + 100.0
+                            }
+                        }
+                    ],
+                    records: 10
+                    //limit: ONE_LAP_DISTANCE
                 }
+                /*{
+                    name: "Laps",
+                    timeSystem: 'lap',
+                    clock: 'lapClock',
+                    clockOffsets: {
+                        start: - ALL_LAPS,
+                        end: LAP / 2
+                    },
+                    presets: [
+                        {
+                            label: 'All Laps',
+                            bounds: {
+                                start: - ALL_LAPS,
+                                end: LAP / 2
+                            }
+                        },
+                        {
+                            label: '40 Laps',
+                            bounds: {
+                                start: - FORTY_LAPS,
+                                end: LAP / 2
+                            }
+                        },
+                        {
+                            label: '20 Laps',
+                            bounds: {
+                                start: - TWENTY_LAPS,
+                                end: LAP / 2
+                            }
+                        },
+                        {
+                            label: '10 Laps',
+                            bounds: {
+                                start: - TEN_LAPS,
+                                end: LAP / 2
+                            }
+                        },
+                        {
+                            label: '5 Laps',
+                            bounds: {
+                                start: - FIVE_LAPS,
+                                end: LAP / 2
+                            }
+                        },
+                        {
+                            label: '1 Laps',
+                            bounds: {
+                                start: - LAP,
+                                end: LAP / 2
+                            }
+                        }
+                    ]
+                },
+                {
+                    name: "Distance",
+                    timeSystem: 'distance',
+                    clock: 'distanceClock',
+                    clockOffsets: {
+                        start: - LAP_DISTANCE,
+                        end: LAP_THIRD / 2.0
+                    },
+                    presets: [
+                        {
+                            label: 'Full Lap',
+                            bounds: {
+                                start: - LAP_DISTANCE,
+                                end: LAP_THIRD / 2.0
+                            }
+                        },
+                        {
+                            label: 'First Third',
+                            bounds: {
+                                start: - LAP_DISTANCE,
+                                end: - 2.0 * LAP_THIRD
+                            }
+                        },
+                        {
+                            label: 'Mid Third',
+                            bounds: {
+                                start: - LAP_DISTANCE + LAP_THIRD,
+                                end: - LAP_THIRD
+                            }
+                        },
+                        {
+                            label: 'Last Third',
+                            bounds: {
+                                start: - LAP_THIRD,
+                                end: LAP_THIRD / 2.0
+                            }
+                        }
+                    ]
+                }*/
             ]
         }));
         openmct.install(openmct.plugins.SummaryWidget());
@@ -198,6 +359,65 @@
         openmct.install(openmct.plugins.Timelist());
         openmct.install(openmct.plugins.BarChart());
         openmct.install(openmct.plugins.ScatterPlot());
+
+        
+        // Packet 00
+        openmct.install(openmct.plugins.F1_T00_MotionPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T00_Motion.telemetry', '/F1_T00_MotionHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T00_Motion.telemetry', '/F1_T00_MotionRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T01_SessionPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T01_Session.telemetry', '/F1_T01_SessionHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T01_Session.telemetry', '/F1_T01_SessionRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T02_Lap_DataPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T02_Lap_Data.telemetry', '/F1_T02_Lap_DataHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T02_Lap_Data.telemetry', '/F1_T02_Lap_DataRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T03_EventPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T03_Event.telemetry', '/F1_T03_EventHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T03_Event.telemetry', '/F1_T03_EventRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T04_ParticipantsPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T04_Participants.telemetry', '/F1_T04_ParticipantsHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T04_Participants.telemetry', '/F1_T04_ParticipantsRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T05_Car_SetupsPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T05_Car_Setups.telemetry', '/F1_T05_Car_SetupsHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T05_Car_Setups.telemetry', '/F1_T05_Car_SetupsRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T06_Car_TelemetryPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T06_Car_Telemetry.telemetry', '/F1_T06_Car_TelemetryHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T06_Car_Telemetry.telemetry', '/F1_T06_Car_TelemetryRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T07_Car_StatusPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T07_Car_Status.telemetry', '/F1_T07_Car_StatusHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T07_Car_Status.telemetry', '/F1_T07_Car_StatusRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T08_Final_ClassificationPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T08_Final_Classification.telemetry', '/F1_T08_Final_ClassificationHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T08_Final_Classification.telemetry', '/F1_T08_Final_ClassificationRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T09_Lobby_InfoPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T09_Lobby_Info.telemetry', '/F1_T09_Lobby_InfoHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T09_Lobby_Info.telemetry', '/F1_T09_Lobby_InfoRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T10_Car_DamagePlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T10_Car_Damage.telemetry', '/F1_T10_Car_DamageHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T10_Car_Damage.telemetry', '/F1_T10_Car_DamageRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.F1_T11_Session_HistoryPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T11_Session_History.telemetry', '/F1_T11_Session_HistoryHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T11_Session_History.telemetry', '/F1_T11_Session_HistoryRealtime/', IP_ADDRESS));
+
+        openmct.install(openmct.plugins.TelemetryDecode());
+        openmct.install(openmct.plugins.GPSTrackMap());
+        openmct.install(openmct.plugins.CircleMap());
+        //openmct.install(openmct.plugins.RevLights());
+        openmct.install(openmct.plugins.RemoteClock());
+
+        //openmct.install(openmct.plugins.SimpleVuePlugin());
+        
         openmct.start();
     </script>
 </html>

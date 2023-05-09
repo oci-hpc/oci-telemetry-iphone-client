@@ -16,7 +16,10 @@ const __DEV__ = !process.env.NODE_ENV || process.env.NODE_ENV === 'development';
 
 // Defaults
 options.port = options.port || options.p || 8080;
-options.host = options.host || 'localhost';
+// Running locally on your computer you can use local host, or 0.0.0.0
+//options.host = options.host || 'localhost';
+// Running on cloud, use 0.0.0.0, also works when running locally.
+options.host = options.host || '0.0.0.0';
 options.directory = options.directory || options.D || '.';
 
 // Show command line options
@@ -89,4 +92,6 @@ app.get('/', function (req, res) {
 app.listen(options.port, options.host, function () {
     console.log('Open MCT application running at %s:%s', options.host, options.port);
 });
+
+app.use(express['static'](options.directory));
 
