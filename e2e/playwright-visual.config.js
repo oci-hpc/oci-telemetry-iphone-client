@@ -36,13 +36,6 @@ const config = {
                 browserName: 'chromium',
                 theme: 'snow'
             }
-        },
-        {
-            name: 'chrome-redbull-theme',
-            use: {
-                browserName: 'chromium',
-                theme: 'redbull'
-            }
         }
     ],
     reporter: [

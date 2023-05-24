@@ -1,40 +1,39 @@
-var F1_T06_Car_TelemetryCreateDict = require('./F1_T06_Car_TelemetryCreateDict');
-
+var iPhone_SensorLogCreateDict = require('./iPhone_SensorLogCreateDict');
 
 define([
-    //"./F1_T06_Car_TelemetryLimitProvider_Test",
+    //"./iPhone_SensorLogLimitProvider_Test",
 ], function (
-    //F1_T06_Car_TelemetryLimitProvider
+    //iPhone_SensorLogLimitProvider
 ) {
 
-    function F1_T06_Car_TelemetryPlugin() {
+    function iPhone_SensorLogPlugin() {
 
         // This creates a local dictionary so we don't have to fetch it from the server repeatedly.
         // Important as we have lots of channels. It loops a lot of times.
-        const localDictionary = new F1_T06_Car_TelemetryCreateDict;
+        const localDictionary = new iPhone_SensorLogCreateDict;
         const localDictResponse = new Response(JSON.stringify(localDictionary));
         const localDictResponseJSON = localDictResponse.json();
 
 
-        function getF1_T06_Car_TelemetryDictionary() {
+        function getiPhone_SensorLogDictionary() {
             // This grabs the local dictionary instead
             //response = new Response(JSON.stringify(localDictionary));
             //return response.json();
             return localDictResponseJSON;
 
             //This requires a fetch across the internet for every channel. Gets very slow for 500+ channels!
-            //return fetch('/example/F1_T06_Car_Telemetry/F1_T06_Car_Telemetrydictionary.json').then(function (response) {
+            //return fetch('/example/iPhone_SensorLog/iPhone_SensorLogdictionary.json').then(function (response) {
             //    return response.json();
             //});
 
         }
 
         // An object provider builds Domain Objects
-        var F1_T06_Car_Telemetry_objectProvider = {
+        var iPhone_SensorLog_objectProvider = {
             get: function (identifier) {
-                return getF1_T06_Car_TelemetryDictionary().then(function (dictionary) {
-                    //console.log("F1_T06_Car_Telemetry-dictionary-plugin.js: identifier.key = " + identifier.key);
-                    if (identifier.key === 'F1_T06_Car_Telemetry') {
+                return getiPhone_SensorLogDictionary().then(function (dictionary) {
+                    //console.log("iPhone_SensorLog-dictionary-plugin.js: identifier.key = " + identifier.key);
+                    if (identifier.key === 'iPhone_SensorLog') {
                         return {
                             identifier: identifier,
                             name: dictionary.name,
@@ -49,11 +48,11 @@ define([
                         return {
                             identifier: identifier,
                             name: measurement.name,
-                            type: 'F1_T06_Car_Telemetry.telemetry',
+                            type: 'iPhone_SensorLog.telemetry',
                             telemetry: {
                                 values: measurement.values
                             },
-                            location: 'F1_T06_Car_Telemetry.taxonomy:F1_T06_Car_Telemetry'
+                            location: 'iPhone_SensorLog.taxonomy:iPhone_SensorLog'
                         };
                     }
                 });
@@ -64,17 +63,17 @@ define([
         // Can be used to populate a hierarchy under a custom root-level object based on the contents of a telemetry dictionary.
         // "appliesTo"  returns a boolean value indicating whether this composition provider applies to the given object
         // "load" returns an array of Identifier objects (like the channels this telemetry stream offers)
-        var F1_T06_Car_Telemetry_compositionProvider = {
+        var iPhone_SensorLog_compositionProvider = {
             appliesTo: function (domainObject) {
-                return domainObject.identifier.namespace === 'F1_T06_Car_Telemetry.taxonomy'
+                return domainObject.identifier.namespace === 'iPhone_SensorLog.taxonomy'
                     && domainObject.type === 'folder';
             },
             load: function (domainObject) {
-                return getF1_T06_Car_TelemetryDictionary()
+                return getiPhone_SensorLogDictionary()
                     .then(function (dictionary) {
                         return dictionary.measurements.map(function (m) {
                             return {
-                                namespace: 'F1_T06_Car_Telemetry.taxonomy',
+                                namespace: 'iPhone_SensorLog.taxonomy',
                                 key: m.key
                             };
                         });
@@ -85,23 +84,23 @@ define([
         return function install(openmct) {
             // The addRoot function takes an "object identifier" as an argument
             openmct.objects.addRoot({
-                namespace: 'F1_T06_Car_Telemetry.taxonomy',
-                key: 'F1_T06_Car_Telemetry'
+                namespace: 'iPhone_SensorLog.taxonomy',
+                key: 'iPhone_SensorLog'
             });
 
-            openmct.objects.addProvider('F1_T06_Car_Telemetry.taxonomy', F1_T06_Car_Telemetry_objectProvider);
+            openmct.objects.addProvider('iPhone_SensorLog.taxonomy', iPhone_SensorLog_objectProvider);
 
-            openmct.composition.addProvider(F1_T06_Car_Telemetry_compositionProvider);
+            openmct.composition.addProvider(iPhone_SensorLog_compositionProvider);
 
-            //openmct.telemetry.addProvider(new F1_T06_Car_TelemetryLimitProvider());
+            //openmct.telemetry.addProvider(new iPhone_SensorLogLimitProvider());
 
-            openmct.types.addType('F1_T06_Car_Telemetry.telemetry', {
-                name: 'F1_T06_Car_Telemetry Telemetry Point',
-                description: 'Telemetry of F1_T06_Car_Telemetry',
+            openmct.types.addType('iPhone_SensorLog.telemetry', {
+                name: 'iPhone_SensorLog Telemetry Point',
+                description: 'Telemetry of iPhone_SensorLog',
                 cssClass: 'icon-telemetry'
             });
         };
     }
 
-    return F1_T06_Car_TelemetryPlugin;
+    return iPhone_SensorLogPlugin;
 });

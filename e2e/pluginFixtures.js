@@ -109,7 +109,7 @@ const path = require('path');
  *         browserName: 'chromium',
  *         theme: 'snow'
  * ```
- * @type {'redbull' | 'snow' | 'espresso'}
+ * @type { 'snow' | 'espresso'}
  */
 const theme = 'espresso';
 
@@ -131,10 +131,6 @@ exports.test = test.extend({
         if (theme === 'snow') {
             //inject snow theme
             await page.addInitScript({ path: path.join(__dirname, './helper', './useSnowTheme.js') });
-        }
-        else if (theme === 'redbull') {
-            //inject redbull theme
-            await page.addInitScript({ path: path.join(__dirname, './helper', './useRedBullTheme.js') });
         }
 
         await use(page);

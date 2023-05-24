@@ -63,7 +63,6 @@ define([
     './conditionWidget/plugin',
     './themes/espresso',
     './themes/snow',
-    './themes/redbull',
     './URLTimeSettingsSynchronizer/plugin',
     './notificationIndicator/plugin',
     './newFolderAction/plugin',
@@ -90,23 +89,8 @@ define([
     '../../example/HistoricalTelemetry/HistoricalTelemetry-plugin',
     '../../example/RealtimeTelemetry/RealtimeTelemetry-plugin',
     '../../example/exampleTags/plugin',
-    '../../example/F1_T00_Motion/F1_T00_Motion-plugin',
-    '../../example/F1_T01_Session/F1_T01_Session-plugin',
-    '../../example/F1_T02_Lap_Data/F1_T02_Lap_Data-plugin',
-    '../../example/F1_T03_Event/F1_T03_Event-plugin',
-    '../../example/F1_T04_Participants/F1_T04_Participants-plugin',
-    '../../example/F1_T05_Car_Setups/F1_T05_Car_Setups-plugin',
-    '../../example/F1_T06_Car_Telemetry/F1_T06_Car_Telemetry-plugin',
-    '../../example/F1_T07_Car_Status/F1_T07_Car_Status-plugin',
-    '../../example/F1_T08_Final_Classification/F1_T08_Final_Classification-plugin',
-    '../../example/F1_T09_Lobby_Info/F1_T09_Lobby_Info-plugin',
-    '../../example/F1_T10_Car_Damage/F1_T10_Car_Damage-plugin',
-    '../../example/F1_T11_Session_History/F1_T11_Session_History-plugin',
+    '../../example/iPhone_SensorLog/iPhone_SensorLog-plugin',
 
-    '../../example/TelemetryDecode/TelemetryDecodePlugin',
-    '../../example/GPSTrackMap/GPSTrackMapPlugin',
-    '../../example/CircleMap/CircleMapPlugin',
-    '../../example/RevLights/RevLightsPlugin',
     //'../../example/simpleVuePlugin/plugin',
 ], function (
     _,
@@ -150,7 +134,6 @@ define([
     ConditionWidgetPlugin,
     Espresso,
     Snow,
-    RedBull,
     URLTimeSettingsSynchronizer,
     NotificationIndicator,
     NewFolderAction,
@@ -177,22 +160,8 @@ define([
     HistoricalTelemetryPlugin,
     RealtimeTelemetryPlugin,
     ExampleTags,
-    F1_T00_MotionPlugin,
-    F1_T01_SessionPlugin,
-    F1_T02_Lap_DataPlugin,
-    F1_T03_EventPlugin,
-    F1_T04_ParticipantsPlugin,
-    F1_T05_Car_SetupsPlugin,
-    F1_T06_Car_TelemetryPlugin,
-    F1_T07_Car_StatusPlugin,
-    F1_T08_Final_ClassificationPlugin,
-    F1_T09_Lobby_InfoPlugin,
-    F1_T10_Car_DamagePlugin,
-    F1_T11_Session_HistoryPlugin,
-    TelemetryDecodePlugin,
-    GPSTrackMapPlugin,
-    CircleMapPlugin,
-    RevLightsPlugin
+    iPhone_SensorLogPlugin
+    
     //SimpleVuePlugin
 ) {
     const plugins = {};
@@ -257,7 +226,6 @@ define([
     plugins.WebPage = WebPagePlugin.default;
     plugins.Espresso = Espresso.default;
     plugins.Snow = Snow.default;
-    plugins.RedBull = RedBull.default;
     plugins.Condition = ConditionPlugin.default;
     plugins.ConditionWidget = ConditionWidgetPlugin.default;
     plugins.URLTimeSettingsSynchronizer = URLTimeSettingsSynchronizer.default;
@@ -284,24 +252,7 @@ define([
     
     plugins.HistoricalTelemetryPlugin = HistoricalTelemetryPlugin;
     plugins.RealtimeTelemetryPlugin = RealtimeTelemetryPlugin;
-    plugins.F1_T00_MotionPlugin  = F1_T00_MotionPlugin;
-    plugins.F1_T01_SessionPlugin = F1_T01_SessionPlugin;
-    plugins.F1_T02_Lap_DataPlugin = F1_T02_Lap_DataPlugin;
-    plugins.F1_T03_EventPlugin = F1_T03_EventPlugin;
-    plugins.F1_T04_ParticipantsPlugin = F1_T04_ParticipantsPlugin;
-    plugins.F1_T05_Car_SetupsPlugin = F1_T05_Car_SetupsPlugin;
-    plugins.F1_T06_Car_TelemetryPlugin = F1_T06_Car_TelemetryPlugin;
-    plugins.F1_T07_Car_StatusPlugin = F1_T07_Car_StatusPlugin;
-    plugins.F1_T08_Final_ClassificationPlugin = F1_T08_Final_ClassificationPlugin;
-    plugins.F1_T09_Lobby_InfoPlugin = F1_T09_Lobby_InfoPlugin;
-    plugins.F1_T10_Car_DamagePlugin = F1_T10_Car_DamagePlugin;
-    plugins.F1_T11_Session_HistoryPlugin = F1_T11_Session_HistoryPlugin;
-
-    plugins.TelemetryDecode = TelemetryDecodePlugin.default;
-    plugins.GPSTrackMap = GPSTrackMapPlugin.default;
-    plugins.CircleMap = CircleMapPlugin.default;
-    plugins.RevLights = RevLightsPlugin.default;
-    
+    plugins.iPhone_SensorLogPlugin  = iPhone_SensorLogPlugin;
 
     //plugins.SimpleVuePlugin = SimpleVuePlugin;
 

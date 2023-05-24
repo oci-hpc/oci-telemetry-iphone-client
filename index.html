@@ -102,7 +102,7 @@
         // Choose Theme
         openmct.install(openmct.plugins.Espresso());
         //openmct.install(openmct.plugins.Snow());
-        //openmct.install(openmct.plugins.RedBull());
+       
 
     
         openmct.install(openmct.plugins.MyItems());
@@ -360,60 +360,11 @@
         openmct.install(openmct.plugins.BarChart());
         openmct.install(openmct.plugins.ScatterPlot());
 
-        
-        // Packet 00
-        openmct.install(openmct.plugins.F1_T00_MotionPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T00_Motion.telemetry', '/F1_T00_MotionHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T00_Motion.telemetry', '/F1_T00_MotionRealtime/', IP_ADDRESS));
+        // iPhone
+        openmct.install(openmct.plugins.iPhone_SensorLogPlugin());
+		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('iPhone_SensorLog.telemetry', '/iPhone_SensorLogHistory/', IP_ADDRESS));
+        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('iPhone_SensorLog.telemetry', '/iPhone_SensorLogRealtime/', IP_ADDRESS));
 
-        openmct.install(openmct.plugins.F1_T01_SessionPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T01_Session.telemetry', '/F1_T01_SessionHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T01_Session.telemetry', '/F1_T01_SessionRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T02_Lap_DataPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T02_Lap_Data.telemetry', '/F1_T02_Lap_DataHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T02_Lap_Data.telemetry', '/F1_T02_Lap_DataRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T03_EventPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T03_Event.telemetry', '/F1_T03_EventHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T03_Event.telemetry', '/F1_T03_EventRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T04_ParticipantsPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T04_Participants.telemetry', '/F1_T04_ParticipantsHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T04_Participants.telemetry', '/F1_T04_ParticipantsRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T05_Car_SetupsPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T05_Car_Setups.telemetry', '/F1_T05_Car_SetupsHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T05_Car_Setups.telemetry', '/F1_T05_Car_SetupsRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T06_Car_TelemetryPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T06_Car_Telemetry.telemetry', '/F1_T06_Car_TelemetryHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T06_Car_Telemetry.telemetry', '/F1_T06_Car_TelemetryRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T07_Car_StatusPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T07_Car_Status.telemetry', '/F1_T07_Car_StatusHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T07_Car_Status.telemetry', '/F1_T07_Car_StatusRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T08_Final_ClassificationPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T08_Final_Classification.telemetry', '/F1_T08_Final_ClassificationHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T08_Final_Classification.telemetry', '/F1_T08_Final_ClassificationRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T09_Lobby_InfoPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T09_Lobby_Info.telemetry', '/F1_T09_Lobby_InfoHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T09_Lobby_Info.telemetry', '/F1_T09_Lobby_InfoRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T10_Car_DamagePlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T10_Car_Damage.telemetry', '/F1_T10_Car_DamageHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T10_Car_Damage.telemetry', '/F1_T10_Car_DamageRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.F1_T11_Session_HistoryPlugin());
-		openmct.install(openmct.plugins.HistoricalTelemetryPlugin('F1_T11_Session_History.telemetry', '/F1_T11_Session_HistoryHistory/', IP_ADDRESS));
-        openmct.install(openmct.plugins.RealtimeTelemetryPlugin('F1_T11_Session_History.telemetry', '/F1_T11_Session_HistoryRealtime/', IP_ADDRESS));
-
-        openmct.install(openmct.plugins.TelemetryDecode());
-        openmct.install(openmct.plugins.GPSTrackMap());
-        openmct.install(openmct.plugins.CircleMap());
-        //openmct.install(openmct.plugins.RevLights());
         openmct.install(openmct.plugins.RemoteClock());
 
         //openmct.install(openmct.plugins.SimpleVuePlugin());
